@@ -1,0 +1,101 @@
+<style>
+  body {
+    font-family: initial;
+    font-size: 16px;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  a {
+    margin-right: 20px;
+    color: aliceblue;
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #964B00;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover {
+    opacity: 0.8;
+  }
+
+  .fa-shopping-cart {
+    font-size: 50px;
+    margin: 10px;
+  }
+
+  .glass{
+    display: inline-block;
+    padding: 10px 20px;
+    border: 0;
+    text-decoration: none;
+    border-radius: 15px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(30px);
+    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.toolbar{
+  text-transform: capitalize;
+}
+
+</style>
+
+<div class="toolbar" role="banner">
+  <img src="assets/images/dg.png" alt="2022" style="width:100px;height: 60px;;">
+  <span [routerLink]="['/dashboard']">Welcome, {{welcomeUsername}}</span>
+
+  <button mat-button [matMenuTriggerFor]="menu">Menu <i class="fas fa-caret-down"></i></button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item *ngFor="let cat of categories"
+      [routerLink]="['/dsiplay-category/', cat.id]">{{cat.name}}</button>
+  </mat-menu>
+
+  <div class="spacer"></div>
+  <a type="button" [routerLink]="['/dashboard']">
+    Home <i class="fas fa-home"></i>
+  </a>
+  <a type="button" *ngIf="user" [routerLink]="['/profile/', user.id]">
+    Profile <i class="fas fa-user"></i>
+  </a>
+
+  <a type="button" class="glass" (click)="login()" *ngIf="!user">
+    Login
+  </a>
+
+  <a type="button" class="glass" (click)="register()" *ngIf="!user">
+    Register
+  </a>
+</div><br>
+
+<!-- for bootstrap working -->
+<script type="text/javascript" src="assets/js/bootstrap-3.1.1.min.js"></script>
+<!-- //for bootstrap working -->
+
+<router-outlet></router-outlet>
+
+<app-footer></app-footer>
